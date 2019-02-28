@@ -31,7 +31,29 @@ public class MainController implements EventDispatcher {
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void dispatch(Event event) {
+        switch (event.getEventCode()) {
+            case CREATE_PET:
+                handlePetCreation(event);
+                break;
+        }
+    }
 
+    private void handlePetCreation(Event event) {
+        boolean created = controllers.get(ControllerName.SETUP_CONTROLLER).handleEvent(event);
+        if (created) {
+            startGamePlay(event.getEventData().toString());
+        }
+    }
+
+    private void startGamePlay(String petName) {
+        PetController petController = new PetController(new PetModel(petName), new PetView());
+        sceneRouter.addPetScene(petController.getPetView());
+        try {
+            sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
+        } catch (NonExistingSceneException e) {
+            e.printStackTrace();
+        }
+        controllers.put(ControllerName.PET_CONTROLLER, petController);
     }
 }
