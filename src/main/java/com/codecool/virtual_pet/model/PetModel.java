@@ -22,15 +22,15 @@ public class PetModel {
         return stats;
     }
 
-    public int getHunger() {
+    public double getHunger() {
         return stats.getHunger();
     }
 
-    public int getTireness() {
-        return stats.getTireness();
+    public double getTireness() {
+        return stats.getTiredness();
     }
 
-    public int getHappiness() {
+    public double getHappiness() {
         return stats.getHappiness();
     }
 }
