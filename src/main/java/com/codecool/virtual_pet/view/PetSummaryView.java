@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -11,5 +12,6 @@ public class PetSummaryView extends VBox {
                 new Label("Pet name:"),
                 new Text(petName)
         );
+        setAlignment(Pos.CENTER);
     }
 }

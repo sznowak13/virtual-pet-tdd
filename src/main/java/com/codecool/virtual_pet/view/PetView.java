@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ public class PetView extends HBox {
         petView.setFitWidth(DisplayConfig.PET_DISPLAY_WIDTH);
         petView.setPreserveRatio(true);
         getChildren().add(petView);
+        setAlignment(Pos.CENTER);
     }
 
 }
