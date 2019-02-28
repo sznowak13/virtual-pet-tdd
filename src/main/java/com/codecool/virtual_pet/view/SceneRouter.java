@@ -1,4 +1,4 @@
-package com.codecool.virtualPet.View;
+package com.codecool.virtual_pet.view;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

@@ -1,6 +1,6 @@
-package com.codecool.virtualPet.Controller;
+package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtualPet.View.PetSetupView;
+import com.codecool.virtual_pet.view.PetSetupView;
 
 public class PetSetupController {
 

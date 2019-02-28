@@ -1,4 +1,4 @@
-package com.codecool.virtualPet.View;
+package com.codecool.virtual_pet.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

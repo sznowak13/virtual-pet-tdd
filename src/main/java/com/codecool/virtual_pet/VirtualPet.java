@@ -1,7 +1,7 @@
-package com.codecool.virtualPet;
+package com.codecool.virtual_pet;
 
-import com.codecool.virtualPet.Controller.MainController;
-import com.codecool.virtualPet.View.SceneRouter;
+import com.codecool.virtual_pet.controller.MainController;
+import com.codecool.virtual_pet.view.SceneRouter;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

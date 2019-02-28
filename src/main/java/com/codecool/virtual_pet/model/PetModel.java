@@ -1,4 +1,4 @@
-package com.codecool.virtualPet.Model;
+package com.codecool.virtual_pet.model;
 
 public class PetModel {
 

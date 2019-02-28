@@ -1,7 +1,7 @@
-package com.codecool.virtualPet.Controller;
+package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtualPet.View.PetSetupView;
-import com.codecool.virtualPet.View.SceneRouter;
+import com.codecool.virtual_pet.view.PetSetupView;
+import com.codecool.virtual_pet.view.SceneRouter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
