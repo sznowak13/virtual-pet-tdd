@@ -9,18 +9,18 @@ import java.util.Map;
 public class SceneRouter {
 
     private Stage window;
-    private Map<String, Scene> sceneMap = new HashMap<>();
+    private Map<SceneName, Scene> sceneMap = new HashMap<>();
 
     public SceneRouter(Stage primaryStage) {
         window = primaryStage;
         window.show();
     }
 
-    public void addScene(String sceneName, Scene scene) {
+    public void addScene(SceneName sceneName, Scene scene) {
         sceneMap.put(sceneName, scene);
     }
 
-    public void changeSceneTo(String sceneName) throws NonExistingSceneException {
+    public void changeSceneTo(SceneName sceneName) throws NonExistingSceneException {
         if (sceneMap.containsKey(sceneName)) {
             window.setScene(sceneMap.get(sceneName));
         } else {
@@ -29,11 +29,10 @@ public class SceneRouter {
     }
 
     public void addSetupScene(PetSetupView view) {
-        addScene("SETUP", new Scene(view, DisplayConfig.SETUP_WIDTH, DisplayConfig.SETUP_HEIGHT));
-        try {
-            changeSceneTo("SETUP");
-        } catch (NonExistingSceneException e) {
-            e.printStackTrace();
-        }
+        addScene(SceneName.SETUP, new Scene(view, DisplayConfig.SETUP_WIDTH, DisplayConfig.SETUP_HEIGHT));
+    }
+
+    public void addPetScene(PetView petView) {
+        addScene(SceneName.PET_MAIN_VIEW, new Scene(petView, DisplayConfig.DISPLAY_WIDTH, DisplayConfig.DISPLAY_HEIGHT));
     }
 }
