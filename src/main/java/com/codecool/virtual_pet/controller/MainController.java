@@ -1,15 +1,18 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.view.PetSetupView;
-import com.codecool.virtual_pet.view.SceneRouter;
+import com.codecool.virtual_pet.event_system_lib.Event;
+import com.codecool.virtual_pet.event_system_lib.EventDispatcher;
+import com.codecool.virtual_pet.event_system_lib.EventHandler;
+import com.codecool.virtual_pet.model.PetModel;
+import com.codecool.virtual_pet.view.*;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainController implements PropertyChangeListener {
+public class MainController implements EventDispatcher {
 
     private SceneRouter sceneRouter;
-    private PetSetupController petSetupController;
+    private Map<ControllerName, EventHandler> controllers = new HashMap<>();
 
     public MainController(SceneRouter sceneRouter) {
         this.sceneRouter = sceneRouter;
