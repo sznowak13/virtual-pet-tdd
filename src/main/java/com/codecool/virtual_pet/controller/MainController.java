@@ -19,9 +19,15 @@ public class MainController implements EventDispatcher {
     }
 
     public void init() {
-        petSetupController = new PetSetupController(new PetSetupView());
-
+        PetSetupController petSetupController = new PetSetupController(new PetSetupView());
+        petSetupController.getView().addEventDispatcher(this);
         sceneRouter.addSetupScene(petSetupController.getView());
+        try {
+            sceneRouter.changeSceneTo(SceneName.SETUP);
+        } catch (NonExistingSceneException e) {
+            e.printStackTrace();
+        }
+        controllers.put(ControllerName.SETUP_CONTROLLER, petSetupController);
     }
 
     @Override
