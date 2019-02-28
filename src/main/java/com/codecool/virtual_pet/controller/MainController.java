@@ -47,7 +47,8 @@ public class MainController implements EventDispatcher {
     }
 
     private void startGamePlay(String petName) {
-        PetController petController = new PetController(new PetModel(petName), new PetView());
+        PetController petController = new PetController(new PetModel(petName));
+        petController.createPetOverview();
         sceneRouter.addPetScene(petController.getPetView());
         try {
             sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);

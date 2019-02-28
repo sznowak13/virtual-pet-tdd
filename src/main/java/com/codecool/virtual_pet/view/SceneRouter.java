@@ -32,7 +32,7 @@ public class SceneRouter {
         addScene(SceneName.SETUP, new Scene(view, DisplayConfig.SETUP_WIDTH, DisplayConfig.SETUP_HEIGHT));
     }
 
-    public void addPetScene(PetView petView) {
+    public void addPetScene(PetOverview petView) {
         addScene(SceneName.PET_MAIN_VIEW, new Scene(petView, DisplayConfig.DISPLAY_WIDTH, DisplayConfig.DISPLAY_HEIGHT));
     }
 }
