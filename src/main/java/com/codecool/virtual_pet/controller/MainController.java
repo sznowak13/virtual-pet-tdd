@@ -22,11 +22,7 @@ public class MainController implements EventDispatcher {
         PetSetupController petSetupController = new PetSetupController(new PetSetupView());
         petSetupController.getView().addEventDispatcher(this);
         sceneRouter.addSetupScene(petSetupController.getView());
-        try {
-            sceneRouter.changeSceneTo(SceneName.SETUP);
-        } catch (NonExistingSceneException e) {
-            e.printStackTrace();
-        }
+        sceneRouter.changeSceneTo(SceneName.SETUP);
         controllers.put(ControllerName.SETUP_CONTROLLER, petSetupController);
     }
 
@@ -50,11 +46,7 @@ public class MainController implements EventDispatcher {
         PetController petController = new PetController(new PetModel(petName));
         petController.createPetOverview();
         sceneRouter.addPetScene(petController.getPetView());
-        try {
-            sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
-        } catch (NonExistingSceneException e) {
-            e.printStackTrace();
-        }
+        sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
         controllers.put(ControllerName.PET_CONTROLLER, petController);
     }
 }
