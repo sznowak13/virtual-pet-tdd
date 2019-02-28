@@ -11,6 +11,7 @@ class PetModelTest {
     @Test
     void constructor() {
         petModel = new PetModel("Testing constructor", new PetStats(100, 50, 80));
+        assertEquals(petModel.getName(), "Testing constructor");
         assertEquals(petModel.getHunger(), 100);
         assertEquals(petModel.getHappiness(), 80);
         assertEquals(petModel.getTireness(), 50);
