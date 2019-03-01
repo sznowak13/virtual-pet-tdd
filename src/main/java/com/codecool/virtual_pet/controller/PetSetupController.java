@@ -1,10 +1,10 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.event_system_lib.Event;
-import com.codecool.virtual_pet.event_system_lib.EventHandler;
+import com.codecool.virtual_pet.notification_system_lib.Notification;
+import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.view.PetSetupView;
 
-public class PetSetupController implements EventHandler {
+public class PetSetupController implements NotificationHandler {
 
     private PetSetupView petSetupView;
 
@@ -17,8 +17,8 @@ public class PetSetupController implements EventHandler {
     }
 
     @Override
-    public boolean handleEvent(Event event) {
-        String petName = event.getEventData().toString();
+    public boolean handleNotification(Notification notification) {
+        String petName = notification.getNotificationData().toString();
         if (petName.length() > 0) {
             return true;
         } else {

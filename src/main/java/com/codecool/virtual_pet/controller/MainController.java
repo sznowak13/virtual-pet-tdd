@@ -1,18 +1,18 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.event_system_lib.Event;
-import com.codecool.virtual_pet.event_system_lib.EventDispatcher;
-import com.codecool.virtual_pet.event_system_lib.EventHandler;
+import com.codecool.virtual_pet.notification_system_lib.Notification;
+import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
+import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.model.PetModel;
 import com.codecool.virtual_pet.view.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainController implements EventDispatcher {
+public class MainController implements NotificationDispatcher {
 
     private SceneRouter sceneRouter;
-    private Map<ControllerName, EventHandler> controllers = new HashMap<>();
+    private Map<ControllerName, NotificationHandler> controllers = new HashMap<>();
 
     public MainController(SceneRouter sceneRouter) {
         this.sceneRouter = sceneRouter;
@@ -27,20 +27,20 @@ public class MainController implements EventDispatcher {
     }
 
     @Override
-    public void dispatch(Event event) {
-        switch (event.getEventCode()) {
+    public void dispatch(Notification notification) {
+        switch (notification.getNotificationCode()) {
             case CREATE_PET:
-                handlePetCreation(event);
+                handlePetCreation(notification);
                 break;
             default:
-                System.out.println(event.getEventCode());
+                System.out.println(notification.getNotificationCode());
         }
     }
 
-    private void handlePetCreation(Event event) {
-        boolean created = controllers.get(ControllerName.SETUP_CONTROLLER).handleEvent(event);
+    private void handlePetCreation(Notification notification) {
+        boolean created = controllers.get(ControllerName.SETUP_CONTROLLER).handleNotification(notification);
         if (created) {
-            startGamePlay(event.getEventData().toString());
+            startGamePlay(notification.getNotificationData().toString());
         }
     }
 

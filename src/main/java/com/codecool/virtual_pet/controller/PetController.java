@@ -1,13 +1,11 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.event_system_lib.Event;
-import com.codecool.virtual_pet.event_system_lib.EventHandler;
+import com.codecool.virtual_pet.notification_system_lib.Notification;
+import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.model.PetModel;
 import com.codecool.virtual_pet.view.PetOverview;
-import com.codecool.virtual_pet.view.PetSummaryView;
-import com.codecool.virtual_pet.view.PetView;
 
-public class PetController implements EventHandler {
+public class PetController implements NotificationHandler {
 
     private PetModel petModel;
     private PetOverview petView;
@@ -29,7 +27,7 @@ public class PetController implements EventHandler {
     }
 
     @Override
-    public boolean handleEvent(Event event) {
+    public boolean handleNotification(Notification notification) {
         return false;
     }
 

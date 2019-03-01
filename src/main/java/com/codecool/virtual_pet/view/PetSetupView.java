@@ -1,9 +1,9 @@
 package com.codecool.virtual_pet.view;
 
-import com.codecool.virtual_pet.event_system_lib.Event;
-import com.codecool.virtual_pet.event_system_lib.EventBroadcaster;
-import com.codecool.virtual_pet.event_system_lib.EventCode;
-import com.codecool.virtual_pet.event_system_lib.EventDispatcher;
+import com.codecool.virtual_pet.notification_system_lib.Notification;
+import com.codecool.virtual_pet.notification_system_lib.NotificationBroadcaster;
+import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
+import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +16,7 @@ public class PetSetupView extends VBox {
     private TextField petNameField = new TextField();
     private Button createButton = new Button("Hatch!");
     private Text errorMsg = new Text();
-    private EventBroadcaster eb = new EventBroadcaster();
+    private NotificationBroadcaster eb = new NotificationBroadcaster();
 
     public PetSetupView() {
         super(15);
@@ -25,7 +25,7 @@ public class PetSetupView extends VBox {
         petNameField.setAlignment(Pos.CENTER);
         petNameField.setMaxWidth(200);
         createButton.setOnAction(event -> eb.broadcast(
-                new Event<>(EventCode.CREATE_PET, petNameField.getCharacters().toString()))
+                new Notification(NotificationCode.CREATE_PET, petNameField.getCharacters().toString()))
         );
         getChildren().addAll(
                 new Label("Your pet name:"),
@@ -35,8 +35,8 @@ public class PetSetupView extends VBox {
         );
     }
 
-    public void addEventDispatcher(EventDispatcher eventDispatcher) {
-        eb.addSubscriber(eventDispatcher);
+    public void addEventDispatcher(NotificationDispatcher notificationDispatcher) {
+        eb.addSubscriber(notificationDispatcher);
     }
 
     public void displayError(String error) {
