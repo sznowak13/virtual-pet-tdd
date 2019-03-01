@@ -21,7 +21,7 @@ public class PetOverview extends BorderPane {
         setBottom(petActionsView);
     }
 
-    public void addActionEventDispatcher(NotificationDispatcher notificationDispatcher) {
+    public void addActionNotificationDispatcher(NotificationDispatcher notificationDispatcher) {
         petActionsView.addEventDispatcher(notificationDispatcher);
     }
 }

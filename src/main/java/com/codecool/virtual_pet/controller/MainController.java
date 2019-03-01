@@ -30,7 +30,7 @@ public class MainController implements NotificationDispatcher {
 
     private PetSetupController createPetSetupController() {
         PetSetupController petSetupController = new PetSetupController(new PetSetupView());
-        petSetupController.getView().addEventDispatcher(this);
+        petSetupController.getView().addNotificationDispatcher(this);
         controllers.put(ControllerName.SETUP_CONTROLLER, petSetupController);
 
         return petSetupController;
@@ -62,7 +62,7 @@ public class MainController implements NotificationDispatcher {
     private PetController createPetController(String petName) {
         PetController petController = new PetController(new PetModel(petName));
         petController.createPetOverview();
-        petController.getPetView().addActionEventDispatcher(this);
+        petController.getPetView().addActionNotificationDispatcher(this);
         controllers.put(ControllerName.PET_CONTROLLER, petController);
 
         return petController;
