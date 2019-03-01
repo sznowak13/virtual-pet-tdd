@@ -19,11 +19,21 @@ public class MainController implements NotificationDispatcher {
     }
 
     public void init() {
+        PetSetupController petSetupController = createPetSetupController();
+        initSetupScene(petSetupController.getView());
+    }
+
+    private void initSetupScene(PetSetupView petSetupView) {
+        sceneRouter.addSetupScene(petSetupView);
+        sceneRouter.changeSceneTo(SceneName.SETUP);
+    }
+
+    private PetSetupController createPetSetupController() {
         PetSetupController petSetupController = new PetSetupController(new PetSetupView());
         petSetupController.getView().addEventDispatcher(this);
-        sceneRouter.addSetupScene(petSetupController.getView());
-        sceneRouter.changeSceneTo(SceneName.SETUP);
         controllers.put(ControllerName.SETUP_CONTROLLER, petSetupController);
+
+        return petSetupController;
     }
 
     @Override
@@ -45,11 +55,22 @@ public class MainController implements NotificationDispatcher {
     }
 
     private void startGamePlay(String petName) {
+        PetController petController = createPetController(petName);
+        initPetMainView(petController.getPetView());
+    }
+
+    private PetController createPetController(String petName) {
         PetController petController = new PetController(new PetModel(petName));
         petController.createPetOverview();
         petController.getPetView().addActionEventDispatcher(this);
-        sceneRouter.addPetScene(petController.getPetView());
-        sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
         controllers.put(ControllerName.PET_CONTROLLER, petController);
+
+        return petController;
+    }
+
+    private void initPetMainView(PetOverview petOverview) {
+        sceneRouter.addPetScene(petOverview);
+        sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
+
     }
 }
