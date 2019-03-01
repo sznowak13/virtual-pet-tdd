@@ -24,7 +24,9 @@ public class PetSetupView extends VBox {
         petNameField.setPromptText("Enter name here...");
         petNameField.setAlignment(Pos.CENTER);
         petNameField.setMaxWidth(200);
-        createButton.setOnAction(event -> eb.broadcast(new Event(EventCode.CREATE_PET, petNameField.getCharacters())));
+        createButton.setOnAction(event -> eb.broadcast(
+                new Event<>(EventCode.CREATE_PET, petNameField.getCharacters().toString()))
+        );
         getChildren().addAll(
                 new Label("Your pet name:"),
                 petNameField,

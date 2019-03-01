@@ -32,6 +32,8 @@ public class MainController implements EventDispatcher {
             case CREATE_PET:
                 handlePetCreation(event);
                 break;
+            default:
+                System.out.println(event.getEventCode());
         }
     }
 
@@ -45,6 +47,7 @@ public class MainController implements EventDispatcher {
     private void startGamePlay(String petName) {
         PetController petController = new PetController(new PetModel(petName));
         petController.createPetOverview();
+        petController.getPetView().addActionEventDispatcher(this);
         sceneRouter.addPetScene(petController.getPetView());
         sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
         controllers.put(ControllerName.PET_CONTROLLER, petController);
