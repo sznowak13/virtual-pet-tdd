@@ -29,7 +29,7 @@ public class PetController implements NotificationHandler {
             case FEED_PET:
                 Object data = notification.getNotificationData();
                 if (data instanceof PetFood) {
-                    petModel.feed((PetFood) data);
+                    handleFeeding((PetFood) data);
                 } else {
                     throw new IllegalArgumentException("No food to feed!");
                 }
@@ -44,6 +44,13 @@ public class PetController implements NotificationHandler {
                 return false;
         }
         return true;
+    }
+
+    private void handleFeeding(PetFood food) {
+        petModel.feed(food);
+        if (petView != null) {
+            //TODO update the view
+        }
     }
 
     public void createPetOverview() {
