@@ -24,4 +24,16 @@ public class PetStats {
     public double getHappiness() {
         return stats.get(StatName.HAPPINESS);
     }
+
+    public void setHunger(double hunger) {
+        stats.put(StatName.HUNGER, hunger);
+    }
+
+    public void setTiredness(double tiredness) {
+        stats.put(StatName.TIREDNESS, tiredness);
+    }
+
+    public void setHappiness(double happiness) {
+        stats.put(StatName.HAPPINESS, happiness);
+    }
 }

@@ -26,11 +26,27 @@ public class PetModel {
         return stats.getHunger();
     }
 
-    public double getTireness() {
+    public double getTiredness() {
         return stats.getTiredness();
     }
 
     public double getHappiness() {
         return stats.getHappiness();
+    }
+
+    public void increaseHunger() {
+        stats.setHunger(stats.getHunger() + 1);
+    }
+
+    public void increaseTiredness() {
+        stats.setTiredness(stats.getTiredness() + 1);
+    }
+
+    public void decreaseHappiness() {
+        stats.setHappiness(stats.getHappiness() - 1);
+    }
+
+    public void feed(PetFood petFood) {
+        stats.setHunger(stats.getHunger() - petFood.getHungerModifier());
     }
 }
