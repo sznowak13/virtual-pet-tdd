@@ -10,6 +10,7 @@ public class PetController implements NotificationHandler {
 
     private PetModel petModel;
     private PetOverview petView;
+    private Thread petLifeCycleThread;
 
     public PetController(PetModel petModel) {
         this.petModel = petModel;
@@ -49,12 +50,18 @@ public class PetController implements NotificationHandler {
     private void handleFeeding(PetFood food) {
         petModel.feed(food);
         if (petView != null) {
-            //TODO update the view
+            petView.updateStats(petModel.getStats());
         }
     }
 
     public void createPetOverview() {
         setPetView(new PetOverview(petModel));
+        petLifeCycleThread = new Thread(() -> {
+            while(petModel.isActive()) {
+                petView.updateStats(petModel.getStats());
+            }
+        }, "pet-lifecycle");
+        petLifeCycleThread.start();
     }
 
     public PetModel getPetModel() {
