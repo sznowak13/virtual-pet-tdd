@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import com.codecool.virtual_pet.model.PetFood;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.Notifier;
 import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
@@ -31,7 +32,7 @@ public class PetActionsView extends HBox {
     }
 
     private void setupButtonActions() {
-        feed.setOnAction(event -> notifier.notify(new Notification(NotificationCode.FEED_PET)));
+        feed.setOnAction(event -> notifier.notify(new Notification(NotificationCode.FEED_PET, PetFood.MEAT)));
         sleep.setOnAction(event -> notifier.notify(new Notification(NotificationCode.SLEEP)));
         play.setOnAction(event -> notifier.notify(new Notification(NotificationCode.PLAY_WITH_PET)));
     }

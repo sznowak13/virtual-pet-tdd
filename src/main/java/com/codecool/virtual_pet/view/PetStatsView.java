@@ -23,4 +23,16 @@ public class PetStatsView extends VBox {
         );
         setAlignment(Pos.CENTER);
     }
+
+    public void updateHunger(double hunger) {
+        hungerBar.setProgress(hunger / 100);
+    }
+
+    public void updateTiredness(double tiredness) {
+        tirednessBar.setProgress(tiredness / 100);
+    }
+
+    public void updateHappiness(double happiness) {
+        happinessBar.setProgress(happiness / 100);
+    }
 }

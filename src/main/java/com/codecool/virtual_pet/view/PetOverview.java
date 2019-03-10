@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import com.codecool.virtual_pet.model.PetStats;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
 import com.codecool.virtual_pet.model.PetModel;
 import javafx.scene.layout.BorderPane;
@@ -23,5 +24,12 @@ public class PetOverview extends BorderPane {
 
     public void addActionNotificationDispatcher(NotificationDispatcher notificationDispatcher) {
         petActionsView.addEventDispatcher(notificationDispatcher);
+    }
+
+
+    public void updateStats(PetStats stats) {
+        petStatsView.updateHunger(stats.getHunger());
+        petStatsView.updateTiredness(stats.getTiredness());
+        petStatsView.updateHappiness(stats.getHappiness());
     }
 }
