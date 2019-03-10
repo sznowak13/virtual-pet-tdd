@@ -4,5 +4,6 @@ public enum NotificationCode {
     CREATE_PET,
     FEED_PET,
     PLAY_WITH_PET,
+    OPEN_FOOD_INVENTORY,
     SLEEP
 }

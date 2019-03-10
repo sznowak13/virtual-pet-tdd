@@ -32,7 +32,7 @@ public class PetActionsView extends HBox {
     }
 
     private void setupButtonActions() {
-        feed.setOnAction(event -> notifier.notify(new Notification(NotificationCode.FEED_PET, PetFood.MEAT)));
+        feed.setOnAction(event -> notifier.notify(new Notification(NotificationCode.OPEN_FOOD_INVENTORY)));
         sleep.setOnAction(event -> notifier.notify(new Notification(NotificationCode.SLEEP)));
         play.setOnAction(event -> notifier.notify(new Notification(NotificationCode.PLAY_WITH_PET)));
     }

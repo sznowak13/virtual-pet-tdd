@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import com.codecool.virtual_pet.model.PetFood;
 import com.codecool.virtual_pet.model.PetStats;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
 import com.codecool.virtual_pet.model.PetModel;
@@ -11,11 +12,13 @@ public class PetOverview extends BorderPane {
     private PetSummaryView petSummaryView;
     private PetStatsView petStatsView;
     private PetActionsView petActionsView;
+    private FoodInventoryView foodInventory;
 
     public PetOverview(PetModel petModel) {
         petSummaryView = new PetSummaryView(petModel.getName());
         petStatsView = new PetStatsView(petModel.getStats());
         petActionsView = new PetActionsView();
+        foodInventory = new FoodInventoryView();
         setCenter(petView);
         setTop(petSummaryView);
         setLeft(petStatsView);
@@ -24,6 +27,7 @@ public class PetOverview extends BorderPane {
 
     public void addActionNotificationDispatcher(NotificationDispatcher notificationDispatcher) {
         petActionsView.addEventDispatcher(notificationDispatcher);
+        foodInventory.addNotificationDispatcher(notificationDispatcher);
     }
 
 
@@ -31,5 +35,10 @@ public class PetOverview extends BorderPane {
         petStatsView.updateHunger(stats.getHunger());
         petStatsView.updateTiredness(stats.getTiredness());
         petStatsView.updateHappiness(stats.getHappiness());
+    }
+
+    public void openFoodInventory(PetFood[] values) {
+        foodInventory.update(values);
+        setRight(foodInventory);
     }
 }

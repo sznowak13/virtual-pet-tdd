@@ -45,6 +45,7 @@ public class MainController implements NotificationDispatcher {
             case SLEEP:
             case PLAY_WITH_PET:
             case FEED_PET:
+            case OPEN_FOOD_INVENTORY:
                 controllers.get(ControllerName.PET_CONTROLLER).handleNotification(notification);
                 break;
             default:

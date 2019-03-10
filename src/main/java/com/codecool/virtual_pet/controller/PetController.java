@@ -42,6 +42,8 @@ public class PetController implements NotificationHandler {
             case PLAY_WITH_PET:
                 //TODO playing with pet
                 break;
+            case OPEN_FOOD_INVENTORY:
+                petView.openFoodInventory(PetFood.values());
             default:
                 return false;
         }
