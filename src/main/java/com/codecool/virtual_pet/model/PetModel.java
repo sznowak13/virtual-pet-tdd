@@ -10,6 +10,8 @@ public class PetModel {
     private boolean active;
     private List<Thread> statThreads = new ArrayList<>();
     private boolean sleeping;
+    private List<PetFood> favoriteFood = new ArrayList<>();
+    private List<PetFood> dislikedFood = new ArrayList<>();
 
     public PetModel(String name, PetStats petStats) {
         this.name = name;
@@ -87,10 +89,15 @@ public class PetModel {
         modifyHungerBy(petFood.getHungerModifier());
         modifyHappinessBy(petFood.getHappinessModifier() + favorModifier);
         modifyTirednessBy(petFood.getTirednessModifier());
-        if (modifiedHunger > Config.MIN_STAT_AMOUNT) {
-            stats.setHunger(modifiedHunger);
+    }
+
+    private double getFavorModifier(PetFood petFood) {
+        if (favoriteFood.contains(petFood)) {
+            return Config.FAVOR_MODIFIER;
+        } else if (dislikedFood.contains(petFood)) {
+            return -Config.FAVOR_MODIFIER;
         } else {
-            stats.setHunger(Config.MIN_STAT_AMOUNT);
+            return 0;
         }
     }
 

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PetModelTest {
@@ -84,6 +86,30 @@ class PetModelTest {
     @Test
     void tirednessCannotDropBelowZero() {
         petModel.getStats().setTiredness(5);
-        petModel
+        petModel.feed(PetFood.ENERGY_TABS); // reduces tiredness by 50
+        assertEquals(0, petModel.getTiredness());
+    }
+
+    @Test
+    void tirednessCannotRaiseAbove100() {
+        petModel.getStats().setTiredness(90);
+        petModel.feed(PetFood.FAT); // increases tiredness by 30
+        assertEquals(100, petModel.getTiredness());
+    }
+
+    @Test
+    void reactsToFavoriteFoodCorrectly() {
+        petModel.getStats().setHappiness(0);
+        petModel.setFavoriteFoods(Arrays.asList(PetFood.MEAT));
+        petModel.feed(PetFood.MEAT);
+        assertEquals(30, petModel.getHappiness());
+    }
+
+    @Test
+    void reactsToDislikedFoodCorrectly() {
+        petModel.getStats().setHappiness(30);
+        petModel.setDislikedFoods(Arrays.asList(PetFood.ENERGY_TABS));
+        petModel.feed(PetFood.ENERGY_TABS);
+        assertEquals(10, petModel.getHappiness());
     }
 }
