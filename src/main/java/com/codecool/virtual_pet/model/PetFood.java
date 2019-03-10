@@ -1,12 +1,13 @@
 package com.codecool.virtual_pet.model;
 
 public enum PetFood {
-    MEAT(30, 20, 20),
-    JELLY(15, 15, 5),
     BREAD(20, 10, 10),
+    FAT(40, -5, 30),
+    JELLY(15, 15, 5),
+    MEAT(30, 20, 20),
     MILK(15, 5, 15),
-    WATER(0, 5, -10),
-    FAT(40, -5, 30);
+    ENERGY_TABS(5, -10, -50),
+    WATER(0, 5, -10);
 
     private double hungerModifier;
     private double happinessModifier;
