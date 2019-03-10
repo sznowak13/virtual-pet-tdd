@@ -42,6 +42,11 @@ public class MainController implements NotificationDispatcher {
             case CREATE_PET:
                 handlePetCreation(notification);
                 break;
+            case SLEEP:
+            case PLAY_WITH_PET:
+            case FEED_PET:
+                controllers.get(ControllerName.PET_CONTROLLER).handleNotification(notification);
+                break;
             default:
                 System.out.println(notification.getNotificationCode());
         }
