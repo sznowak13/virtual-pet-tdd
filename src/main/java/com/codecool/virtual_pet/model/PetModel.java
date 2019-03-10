@@ -52,37 +52,40 @@ public class PetModel {
     }
 
     public void increaseHunger() {
-        if (stats.getHunger() < Config.MAX_STAT_AMOUNT) {
-            stats.setHunger(stats.getHunger() + 1);
-        }
+        modifyHungerBy(-1);
     }
 
     public void increaseTiredness() {
-        if (stats.getTiredness() < Config.MAX_STAT_AMOUNT) {
-            stats.setTiredness(stats.getTiredness() + 1);
-        }
+        modifyTirednessBy(1);
     }
 
     public void decreaseHappiness() {
-        if (stats.getHappiness() > Config.MIN_STAT_AMOUNT) {
-            stats.setHappiness(stats.getHappiness() - 1);
-        }
+        modifyHappinessBy(-1);
+    }
+
+
+    public void setFavoriteFoods(List<PetFood> foodList) {
+        favoriteFood = foodList;
+    }
+
+    public void setDislikedFoods(List<PetFood> foodList) {
+        dislikedFood = foodList;
+    }
+
+    private void modifyHungerBy(double amount) {
+        double hungerAfterMod = normalizeModification(stats.getHunger() - amount);
+        stats.setHunger(hungerAfterMod);
     }
 
     private void modifyHappinessBy(double amount) {
-        double happinessAfterMod = stats.getHappiness() + amount;
-        if (happinessAfterMod > Config.MAX_STAT_AMOUNT) {
-            stats.setHappiness(Config.MAX_STAT_AMOUNT);
-        } else if (happinessAfterMod < Config.MIN_STAT_AMOUNT) {
-            stats.setHappiness(Config.MIN_STAT_AMOUNT);
-        } else {
-            stats.setHappiness(happinessAfterMod);
-        }
+        double happinessAfterMod = normalizeModification(stats.getHappiness() + amount);
+        stats.setHappiness(happinessAfterMod);
     }
 
     public void feed(PetFood petFood) {
-        double modifiedHunger = stats.getHunger() - petFood.getHungerModifier();
-        modifyHappinessBy(petFood.getHappinessModifier());
+        double favorModifier = getFavorModifier(petFood);
+        modifyHungerBy(petFood.getHungerModifier());
+        modifyHappinessBy(petFood.getHappinessModifier() + favorModifier);
         modifyTirednessBy(petFood.getTirednessModifier());
         if (modifiedHunger > Config.MIN_STAT_AMOUNT) {
             stats.setHunger(modifiedHunger);
@@ -92,7 +95,18 @@ public class PetModel {
     }
 
     private void modifyTirednessBy(double tirednessModifier) {
-        stats.setTiredness(stats.getTiredness() + tirednessModifier);
+        double modifiedTiredness = normalizeModification(stats.getTiredness() + tirednessModifier);
+        stats.setTiredness(modifiedTiredness);
+    }
+
+    private double normalizeModification(double modification) {
+        if (modification > Config.MAX_STAT_AMOUNT) {
+            return Config.MAX_STAT_AMOUNT;
+        } else if (modification < Config.MIN_STAT_AMOUNT) {
+            return Config.MIN_STAT_AMOUNT;
+        } else {
+            return modification;
+        }
     }
 
     public void setSleeping(boolean b) {
@@ -153,7 +167,10 @@ public class PetModel {
     }
 
     private void rest() {
-        modifyTirednessBy(-5);
+        modifyTirednessBy(Config.RESTING_MODIFIER);
+        if (stats.getTiredness() < 10) {
+            sleeping = false;
+        }
     }
 
     private class HappinessUpdater implements Runnable {
