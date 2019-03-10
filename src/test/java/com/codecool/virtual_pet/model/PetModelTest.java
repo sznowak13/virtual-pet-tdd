@@ -58,4 +58,32 @@ class PetModelTest {
         petModel.feed(food);
         assertEquals(100 - food.getHungerModifier(), petModel.getHunger());
     }
+
+    @ParameterizedTest
+    @EnumSource(PetFood.class)
+    void happinessChangesDependingOnFoodType(PetFood food) {
+        petModel.getStats().setHappiness(50);
+        petModel.feed(food);
+        assertEquals(50 + food.getHappinessModifier(), petModel.getHappiness());
+    }
+
+    @Test
+    void happinessCannotDropBelowZero() {
+        petModel.getStats().setHappiness(3);
+        petModel.feed(PetFood.FAT); // Fat has negative happiness modifier
+        assertEquals(0, petModel.getHappiness());
+    }
+
+    @Test
+    void happinessCannotRaiseAbove100() {
+        petModel.getStats().setHappiness(95);
+        petModel.feed(PetFood.BREAD); // raising happiness by 10
+        assertEquals(100, petModel.getHappiness());
+    }
+
+    @Test
+    void tirednessCannotDropBelowZero() {
+        petModel.getStats().setTiredness(5);
+        petModel
+    }
 }
