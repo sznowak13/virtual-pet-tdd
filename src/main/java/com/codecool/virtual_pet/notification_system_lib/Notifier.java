@@ -13,8 +13,8 @@ public class Notifier {
         }
     }
 
-    public void addSubscriber(NotificationDispatcher listener) {
-        notificationDispatchers.add(listener);
+    public void addSubscriber(NotificationDispatcher dispatcher) {
+        notificationDispatchers.add(dispatcher);
     }
 
 }

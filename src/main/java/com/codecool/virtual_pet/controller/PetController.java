@@ -14,6 +14,7 @@ public class PetController implements NotificationHandler {
 
     public PetController(PetModel petModel) {
         this.petModel = petModel;
+        petModel.start();
     }
 
     public PetOverview getPetView() {
