@@ -35,7 +35,7 @@ public class PetController implements NotificationHandler {
                 }
                 break;
             case SLEEP:
-                //TODO pet sleeps
+                petModel.setSleeping(true);
                 break;
             case PLAY_WITH_PET:
                 //TODO playing with pet
