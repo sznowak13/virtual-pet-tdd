@@ -60,4 +60,14 @@ public class PetController implements NotificationHandler {
     public PetModel getPetModel() {
         return petModel;
     }
+
+    public void stop() {
+        try {
+            petModel.setActive(false);
+            petModel.stop();
+            petLifeCycleThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

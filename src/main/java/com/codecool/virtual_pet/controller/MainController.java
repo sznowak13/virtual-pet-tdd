@@ -73,4 +73,9 @@ public class MainController implements NotificationDispatcher {
         sceneRouter.changeSceneTo(SceneName.PET_MAIN_VIEW);
 
     }
+
+    public void stop() {
+        PetController pc = (PetController) controllers.get(ControllerName.PET_CONTROLLER);
+        pc.stop();
+    }
 }

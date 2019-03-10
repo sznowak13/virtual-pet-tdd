@@ -7,12 +7,21 @@ import javafx.stage.Stage;
 
 public class VirtualPet extends Application {
 
+    private MainController mainController;
+
     public void start(Stage primaryStage) throws Exception {
-        MainController mainController = new MainController(new SceneRouter(primaryStage));
+        mainController = new MainController(new SceneRouter(primaryStage));
         mainController.init();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Exiting...");
+        mainController.stop();
+        System.out.println("Exited");
     }
 }
