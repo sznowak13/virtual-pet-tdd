@@ -1,6 +1,6 @@
 package com.codecool.virtual_pet.view;
 
-import com.codecool.virtual_pet.model.PetFood;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;

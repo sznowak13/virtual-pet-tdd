@@ -1,6 +1,9 @@
 package com.codecool.virtual_pet.controller;
 
 import com.codecool.virtual_pet.model.*;
+import com.codecool.virtual_pet.model.pet_food.FoodName;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
+import com.codecool.virtual_pet.model.pet_food.PetFoodFactory;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.codecool.virtual_pet.view;
 
-import com.codecool.virtual_pet.model.PetFood;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;

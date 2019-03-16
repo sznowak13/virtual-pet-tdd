@@ -1,10 +1,11 @@
 package com.codecool.virtual_pet.model;
 
+import com.codecool.virtual_pet.model.pet_food.FoodName;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
+import com.codecool.virtual_pet.model.pet_food.PetFoodFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 

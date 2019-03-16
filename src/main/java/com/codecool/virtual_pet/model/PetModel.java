@@ -1,5 +1,7 @@
 package com.codecool.virtual_pet.model;
 
+import com.codecool.virtual_pet.model.pet_food.FoodName;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
 import com.codecool.virtual_pet.model.stat_updaters.HappinessUpdater;
 import com.codecool.virtual_pet.model.stat_updaters.HungerUpdater;
 import com.codecool.virtual_pet.model.stat_updaters.TirednessUpdater;
@@ -23,9 +25,9 @@ public class PetModel {
         stats = petStats;
         active = true;
         sleeping = false;
-        statThreads.add(new Thread(new HungerUpdater(this)));
-        statThreads.add(new Thread(new TirednessUpdater(this)));
-        statThreads.add(new Thread(new HappinessUpdater(this)));
+        statThreads.add(new Thread(new HungerUpdater(this), "hunger-thread"));
+        statThreads.add(new Thread(new TirednessUpdater(this), "tiredness-thread"));
+        statThreads.add(new Thread(new HappinessUpdater(this), "happiness-thread"));
     }
 
     public PetModel(String name) {
@@ -188,5 +190,15 @@ public class PetModel {
             sleeping = false;
             petThoughts = "Time to wake up! Feelin' alive!";
         }
+    }
+
+    public void setRandomFoodTaste() {
+        FoodName favorite = FoodName.getRandomFood();
+        FoodName disliked;
+        do {
+            disliked = FoodName.getRandomFood();
+        } while (disliked.equals(favorite));
+        dislikedFood = disliked;
+        favoriteFood = favorite;
     }
 }

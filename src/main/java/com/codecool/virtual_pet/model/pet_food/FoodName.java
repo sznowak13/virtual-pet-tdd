@@ -1,4 +1,4 @@
-package com.codecool.virtual_pet.model;
+package com.codecool.virtual_pet.model.pet_food;
 
 public enum FoodName {
     BREAD("Bread"),
