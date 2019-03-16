@@ -37,7 +37,7 @@ public class PetModel {
         return name;
     }
 
-    public PetStats getStats() {
+    public synchronized PetStats getStats() {
         return stats;
     }
 
@@ -89,6 +89,7 @@ public class PetModel {
         modifyHungerBy(petFood.getHungerModifier());
         modifyHappinessBy(petFood.getHappinessModifier() + favorModifier);
         modifyTirednessBy(petFood.getTirednessModifier());
+        System.out.println("Fed with " + petFood);
     }
 
     private double getFavorModifier(PetFood petFood) {
