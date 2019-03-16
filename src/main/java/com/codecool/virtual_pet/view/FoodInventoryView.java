@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import com.codecool.virtual_pet.model.pet_food.FoodInventory;
 import com.codecool.virtual_pet.model.pet_food.PetFood;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
@@ -27,9 +28,10 @@ public class FoodInventoryView extends VBox {
         getChildren().addAll(foodGrid, foodDescription);
     }
 
-    void update(PetFood[] foodList) {
-        for (int i = 0; i < foodList.length; i++) {
-            final PetFood food = foodList[i];
+    void update(FoodInventory inventory) {
+        foodGrid.getChildren().clear();
+        for (int i = 0; i < inventory.size(); i++) {
+            final PetFood food = inventory.get(i);
             FoodIcon icon = new FoodIcon(food, foodDescription);
             icon.setOnMouseClicked(event -> notifier.notify(new Notification(NotificationCode.FEED_PET, food)));
             foodGrid.add(icon, i % 3, i / 3);

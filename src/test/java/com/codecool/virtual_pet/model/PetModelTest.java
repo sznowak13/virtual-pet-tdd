@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.model;
 
+import com.codecool.virtual_pet.model.pet_food.FoodInventory;
 import com.codecool.virtual_pet.model.pet_food.FoodName;
 import com.codecool.virtual_pet.model.pet_food.PetFood;
 import com.codecool.virtual_pet.model.pet_food.PetFoodFactory;

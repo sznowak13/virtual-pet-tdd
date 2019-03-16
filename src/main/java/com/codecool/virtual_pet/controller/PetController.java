@@ -1,8 +1,7 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.model.pet_food.FoodName;
+import com.codecool.virtual_pet.model.pet_food.FoodInventory;
 import com.codecool.virtual_pet.model.pet_food.PetFood;
-import com.codecool.virtual_pet.model.pet_food.PetFoodFactory;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.model.PetModel;
@@ -11,12 +10,14 @@ import com.codecool.virtual_pet.view.PetOverview;
 public class PetController implements NotificationHandler {
 
     private PetModel petModel;
+    private FoodInventory foodInventory;
     private PetOverview petView;
     private Thread petLifeCycleThread;
     private Thread petThoughtsUpdater;
 
     public PetController(PetModel petModel) {
         this.petModel = petModel;
+        this.foodInventory = new FoodInventory();
     }
 
     public PetOverview getPetView() {
@@ -45,12 +46,7 @@ public class PetController implements NotificationHandler {
                 //TODO playing with pet
                 break;
             case OPEN_FOOD_INVENTORY:
-                petView.openFoodInventory(new PetFood[] {
-                        PetFoodFactory.createFood(FoodName.MEAT),
-                        PetFoodFactory.createFood(FoodName.ENERGY_TABS),
-                        PetFoodFactory.createFood(FoodName.MILK),
-                        PetFoodFactory.createFood(FoodName.FAT)
-                });
+                petView.openFoodInventory(foodInventory);
             default:
                 return false;
         }
@@ -58,15 +54,18 @@ public class PetController implements NotificationHandler {
     }
 
     private void handleFeeding(PetFood food) {
+        foodInventory.remove(food);
         petModel.feed(food);
         if (petView != null) {
             petView.updateStats(petModel.getStats());
+            petView.openFoodInventory(foodInventory);
         }
     }
 
     public void startPet() {
         petModel.setRandomFoodTaste();
         petModel.start();
+        foodInventory.init(petModel);
         petLifeCycleThread = new Thread(new PetLifeCycleUpdater(), "pet-lifecycle");
         petThoughtsUpdater = new Thread(new PetThoughtsUpdater(), "pet-thoughts");
         petThoughtsUpdater.start();

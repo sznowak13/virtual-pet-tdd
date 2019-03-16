@@ -1,5 +1,6 @@
 package com.codecool.virtual_pet.view;
 
+import com.codecool.virtual_pet.model.pet_food.FoodInventory;
 import com.codecool.virtual_pet.model.pet_food.PetFood;
 import com.codecool.virtual_pet.model.PetStats;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
@@ -37,8 +38,8 @@ public class PetOverview extends BorderPane {
         petStatsView.updateHappiness(stats.getHappiness());
     }
 
-    public void openFoodInventory(PetFood[] values) {
-        foodInventory.update(values);
+    public void openFoodInventory(FoodInventory inventory) {
+        foodInventory.update(inventory);
         setRight(foodInventory);
     }
 
