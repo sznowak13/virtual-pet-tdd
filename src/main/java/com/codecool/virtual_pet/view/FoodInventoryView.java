@@ -6,11 +6,14 @@ import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
 import com.codecool.virtual_pet.notification_system_lib.Notifier;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
-public class FoodInventoryView extends GridPane {
+public class FoodInventoryView extends VBox {
 
-    Notifier notifier = new Notifier();
+    private GridPane foodGrid = new GridPane();
+    private Notifier notifier = new Notifier();
+    private Text foodDescription = new Text();
 
     public FoodInventoryView() {
         super();
@@ -20,13 +23,10 @@ public class FoodInventoryView extends GridPane {
 
     void update(PetFood[] foodList) {
         for (int i = 0; i < foodList.length; i++) {
-            Rectangle foodRect = new Rectangle(15, 15);
             final PetFood food = foodList[i];
-            foodRect.setOnMouseClicked((event) -> {
-                notifier.notify(new Notification(NotificationCode.FEED_PET, food));
-                System.out.println("Fed with " + food);
-            });
-            add(foodRect, i % 3, i / 3);
+            FoodIcon icon = new FoodIcon(food, foodDescription);
+            icon.setOnMouseClicked(event -> notifier.notify(new Notification(NotificationCode.FEED_PET, food)));
+            foodGrid.add(icon, i % 3, i / 3);
         }
 
     }
