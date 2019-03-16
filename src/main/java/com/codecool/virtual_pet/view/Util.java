@@ -6,7 +6,7 @@ public class Util {
 
     public static String getFoodImageUrl(PetFood food) {
         String url = DisplayConfig.FOOD_ASSETS_DIR_URL;
-        switch (food) {
+        switch (food.getName()) {
             case MEAT:
                 url += DisplayConfig.MEAT_IMG_URL;
                 break;

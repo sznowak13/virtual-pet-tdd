@@ -1,10 +1,14 @@
 package com.codecool.virtual_pet.controller;
 
+import com.codecool.virtual_pet.model.FoodName;
 import com.codecool.virtual_pet.model.PetFood;
+import com.codecool.virtual_pet.model.PetFoodFactory;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.model.PetModel;
 import com.codecool.virtual_pet.view.PetOverview;
+
+import java.util.Arrays;
 
 public class PetController implements NotificationHandler {
 
@@ -43,7 +47,12 @@ public class PetController implements NotificationHandler {
                 //TODO playing with pet
                 break;
             case OPEN_FOOD_INVENTORY:
-                petView.openFoodInventory(PetFood.values());
+                petView.openFoodInventory(new PetFood[] {
+                        PetFoodFactory.createFood(FoodName.MEAT),
+                        PetFoodFactory.createFood(FoodName.ENERGY_TABS),
+                        PetFoodFactory.createFood(FoodName.MILK),
+                        PetFoodFactory.createFood(FoodName.FAT)
+                });
             default:
                 return false;
         }

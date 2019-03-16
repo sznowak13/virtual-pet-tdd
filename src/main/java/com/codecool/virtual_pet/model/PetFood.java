@@ -1,22 +1,21 @@
 package com.codecool.virtual_pet.model;
 
-public enum PetFood {
-    BREAD(20, 10, 10),
-    FAT(40, -5, 30),
-    JELLY(15, 15, 5),
-    MEAT(30, 20, 20),
-    MILK(15, 5, 15),
-    ENERGY_TABS(5, -10, -50),
-    WATER(0, 5, -10);
+public class PetFood {
 
-    private double hungerModifier;
-    private double happinessModifier;
-    private double tirednessModifier;
+    private final FoodName name;
+    private final double hungerModifier;
+    private final double happinessModifier;
+    private final double tirednessModifier;
 
-    PetFood(double hungerModifier, double happinessModifier, double tirednessModifier) {
+    PetFood(FoodName name, double hungerModifier, double happinessModifier, double tirednessModifier) {
+        this.name = name;
         this.hungerModifier = hungerModifier;
         this.happinessModifier = happinessModifier;
         this.tirednessModifier = tirednessModifier;
+    }
+
+    public FoodName getName() {
+        return name;
     }
 
     public double getHungerModifier() {
@@ -31,9 +30,12 @@ public enum PetFood {
         return tirednessModifier;
     }
 
+    @Override
+    public String toString() {
+        return getName().toString();
+    }
+
     public static PetFood getRandomFood() {
-        PetFood[] foods = PetFood.values();
-        int randomIndex = (int) (Math.random() * foods.length);
-        return foods[randomIndex];
+        return null;
     }
 }

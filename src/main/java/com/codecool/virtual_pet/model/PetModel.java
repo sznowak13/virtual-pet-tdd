@@ -5,7 +5,6 @@ import com.codecool.virtual_pet.model.stat_updaters.HungerUpdater;
 import com.codecool.virtual_pet.model.stat_updaters.TirednessUpdater;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PetModel {
@@ -15,8 +14,8 @@ public class PetModel {
     private boolean active;
     private List<Thread> statThreads = new ArrayList<>();
     private boolean sleeping;
-    private List<PetFood> favoriteFood = new ArrayList<>();
-    private List<PetFood> dislikedFood = new ArrayList<>();
+    private FoodName favoriteFood;
+    private FoodName dislikedFood;
     private String petThoughts;
 
     public PetModel(String name, PetStats petStats) {
@@ -37,7 +36,6 @@ public class PetModel {
         for (Thread thread : statThreads) {
             thread.start();
         }
-        setFoodTaste(Arrays.asList(PetFood.getRandomFood()), Arrays.asList(PetFood.getRandomFood()));
         petThoughts = "Hi! My name is " + name + "!";
     }
 
@@ -49,15 +47,15 @@ public class PetModel {
         return petThoughts;
     }
 
-    public List<PetFood> getFavoriteFood() {
+    public FoodName getFavoriteFood() {
         return favoriteFood;
     }
 
-    public List<PetFood> getDislikedFood() {
+    public FoodName getDislikedFood() {
         return dislikedFood;
     }
 
-    public void setFoodTaste(List<PetFood> favoriteFood, List<PetFood> dislikedFood) {
+    public void setFoodTaste(FoodName favoriteFood, FoodName dislikedFood) {
         if (favoriteFood != null) {
             this.favoriteFood = favoriteFood;
         }
@@ -99,12 +97,12 @@ public class PetModel {
     }
 
 
-    public void setFavoriteFoods(List<PetFood> foodList) {
-        favoriteFood = foodList;
+    public void setFavoriteFoods(FoodName foodName) {
+        favoriteFood = foodName;
     }
 
-    public void setDislikedFoods(List<PetFood> foodList) {
-        dislikedFood = foodList;
+    public void setDislikedFoods(FoodName foodName) {
+        dislikedFood = foodName;
     }
 
     private void modifyHungerBy(double amount) {
@@ -133,9 +131,9 @@ public class PetModel {
     }
 
     private double getFavorModifier(PetFood petFood) {
-        if (favoriteFood.contains(petFood)) {
+        if (favoriteFood != null && favoriteFood.equals(petFood.getName())) {
             return Config.FAVOR_MODIFIER;
-        } else if (dislikedFood.contains(petFood)) {
+        } else if (dislikedFood != null && dislikedFood.equals(petFood.getName())) {
             return -Config.FAVOR_MODIFIER;
         } else {
             return 0;
