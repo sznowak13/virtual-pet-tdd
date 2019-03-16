@@ -30,4 +30,10 @@ public enum PetFood {
     public double getTirednessModifier() {
         return tirednessModifier;
     }
+
+    public static PetFood getRandomFood() {
+        PetFood[] foods = PetFood.values();
+        int randomIndex = (int) (Math.random() * foods.length);
+        return foods[randomIndex];
+    }
 }
