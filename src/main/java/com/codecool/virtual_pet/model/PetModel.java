@@ -83,7 +83,11 @@ public class PetModel {
     }
 
     public void increaseHunger() {
-        modifyHungerBy(-1);
+        if (sleeping) {
+            modifyHungerBy(-5);
+        } else {
+            modifyHungerBy(-1);
+        }
     }
 
     public void increaseTiredness() {
