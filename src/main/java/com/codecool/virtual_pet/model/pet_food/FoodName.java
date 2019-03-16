@@ -15,6 +15,11 @@ public enum FoodName {
         foodName = name;
     }
 
+    public static FoodName getRandomFood() {
+        FoodName[] names = values();
+        return names[(int) (Math.random() * names.length)];
+    }
+
     @Override
     public String toString() {
         return foodName;

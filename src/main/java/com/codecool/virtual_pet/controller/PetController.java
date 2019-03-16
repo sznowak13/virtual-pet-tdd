@@ -1,14 +1,12 @@
 package com.codecool.virtual_pet.controller;
 
-import com.codecool.virtual_pet.model.FoodName;
-import com.codecool.virtual_pet.model.PetFood;
-import com.codecool.virtual_pet.model.PetFoodFactory;
+import com.codecool.virtual_pet.model.pet_food.FoodName;
+import com.codecool.virtual_pet.model.pet_food.PetFood;
+import com.codecool.virtual_pet.model.pet_food.PetFoodFactory;
 import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationHandler;
 import com.codecool.virtual_pet.model.PetModel;
 import com.codecool.virtual_pet.view.PetOverview;
-
-import java.util.Arrays;
 
 public class PetController implements NotificationHandler {
 
@@ -67,22 +65,10 @@ public class PetController implements NotificationHandler {
     }
 
     public void startPet() {
+        petModel.setRandomFoodTaste();
         petModel.start();
-        petLifeCycleThread = new Thread(() -> {
-            while(petModel.isActive()) {
-                petView.updateStats(petModel.getStats());
-            }
-        }, "pet-lifecycle");
-        petThoughtsUpdater = new Thread(() -> {
-            while (petModel.isActive()) {
-                try {
-                    Thread.sleep(2000);
-                    petView.updateThoughts(petModel);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        petLifeCycleThread = new Thread(new PetLifeCycleUpdater(), "pet-lifecycle");
+        petThoughtsUpdater = new Thread(new PetThoughtsUpdater(), "pet-thoughts");
         petThoughtsUpdater.start();
         petLifeCycleThread.start();
     }
@@ -103,6 +89,31 @@ public class PetController implements NotificationHandler {
             petThoughtsUpdater.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class PetLifeCycleUpdater implements Runnable {
+
+        @Override
+        public void run() {
+            while(petModel.isActive()) {
+                petView.updateStats(petModel.getStats());
+            }
+        }
+    }
+
+    private class PetThoughtsUpdater implements Runnable {
+
+        @Override
+        public void run() {
+            while (petModel.isActive()) {
+                try {
+                    Thread.sleep(2000);
+                    petView.updateThoughts(petModel);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
