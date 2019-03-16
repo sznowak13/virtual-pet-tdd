@@ -1,6 +1,11 @@
 package com.codecool.virtual_pet.model;
 
+import com.codecool.virtual_pet.model.stat_updaters.HappinessUpdater;
+import com.codecool.virtual_pet.model.stat_updaters.HungerUpdater;
+import com.codecool.virtual_pet.model.stat_updaters.TirednessUpdater;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PetModel {
@@ -12,15 +17,16 @@ public class PetModel {
     private boolean sleeping;
     private List<PetFood> favoriteFood = new ArrayList<>();
     private List<PetFood> dislikedFood = new ArrayList<>();
+    private String petThoughts;
 
     public PetModel(String name, PetStats petStats) {
         this.name = name;
         stats = petStats;
         active = true;
         sleeping = false;
-        statThreads.add(new Thread(new HungerUpdater()));
-        statThreads.add(new Thread(new TirednessUpdater()));
-        statThreads.add(new Thread(new HappinessUpdater()));
+        statThreads.add(new Thread(new HungerUpdater(this)));
+        statThreads.add(new Thread(new TirednessUpdater(this)));
+        statThreads.add(new Thread(new HappinessUpdater(this)));
     }
 
     public PetModel(String name) {
@@ -129,6 +135,10 @@ public class PetModel {
         this.active = active;
     }
 
+    public boolean isSleeping() {
+        return sleeping;
+    }
+
     public void stop() {
         for (Thread t : statThreads) {
             try {
@@ -139,65 +149,12 @@ public class PetModel {
         }
     }
 
-    private class HungerUpdater implements Runnable {
-
-        @Override
-        public void run() {
-            while (active) {
-                increaseHunger();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private class TirednessUpdater implements Runnable {
-
-        @Override
-        public void run() {
-            while (active) {
-                int interval = sleeping ? 300 : 500;
-                if (!sleeping) {
-                    increaseTiredness();
-                } else {
-                    rest();
-                }
-                try {
-                    Thread.sleep(interval);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private void rest() {
+    public void rest() {
         modifyTirednessBy(Config.RESTING_MODIFIER);
+        petThoughts = "Night night, need some rest...";
         if (stats.getTiredness() < 10) {
             sleeping = false;
+            petThoughts = "Time to wake up! Feelin' alive!";
         }
     }
-
-    private class HappinessUpdater implements Runnable {
-
-        @Override
-        public void run() {
-            while (active) {
-                if (!sleeping) {
-                    decreaseHappiness();
-                } else {
-                    modifyHappinessBy(1);
-                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
 }
