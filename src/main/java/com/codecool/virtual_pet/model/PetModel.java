@@ -112,9 +112,19 @@ public class PetModel {
         stats.setHunger(hungerAfterMod);
     }
 
-    public void modifyHappinessBy(double amount) {
-        double happinessAfterMod = normalizeModification(stats.getHappiness() + amount);
+    public void modifyHappinessBy(double amount, double modifier) {
+        double finalAmount;
+        if (amount < 0 && modifier > 0 || amount > 0 && modifier < 0) {
+            finalAmount = modifier;
+        } else {
+            finalAmount = amount + modifier;
+        }
+        double happinessAfterMod = normalizeModification(getHappiness() + finalAmount);
         stats.setHappiness(happinessAfterMod);
+    }
+
+    public void modifyHappinessBy(double amount) {
+        modifyHappinessBy(amount, 0);
     }
 
     public void feed(PetFood petFood) {
@@ -127,7 +137,7 @@ public class PetModel {
             petThoughts = "Omnomnomnomnom. That's ok.";
         }
         modifyHungerBy(petFood.getHungerModifier());
-        modifyHappinessBy(petFood.getHappinessModifier() + favorModifier);
+        modifyHappinessBy(petFood.getHappinessModifier(), favorModifier);
         modifyTirednessBy(petFood.getTirednessModifier());
         System.out.println("Fed with " + petFood);
     }

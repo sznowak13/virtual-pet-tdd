@@ -116,4 +116,20 @@ class PetModelTest {
         petModel.feed(PetFoodFactory.createFood(FoodName.ENERGY_TABS));
         assertEquals(10, petModel.getHappiness());
     }
+
+    @Test
+    void increasesHappinessWhenFedWithFavoriteFoodThatDecreasesHappiness() {
+        petModel.getStats().setHappiness(50);
+        petModel.setFavoriteFoods(FoodName.ENERGY_TABS);
+        petModel.feed(PetFoodFactory.createFood(FoodName.ENERGY_TABS));
+        assertEquals(60, petModel.getHappiness());
+    }
+
+    @Test
+    void decreasesHappinessWhenFedWithDislikedFoodWithPositiveModifier() {
+        petModel.getStats().setHappiness(50);
+        petModel.setDislikedFoods(FoodName.MEAT);
+        petModel.feed(PetFoodFactory.createFood(FoodName.MEAT));
+        assertEquals(40, petModel.getHappiness());
+    }
 }
