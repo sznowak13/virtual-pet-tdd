@@ -63,6 +63,7 @@ public class MainController implements NotificationDispatcher {
     private void startGamePlay(String petName) {
         PetController petController = createPetController(petName);
         initPetMainView(petController.getPetView());
+        petController.startPet();
     }
 
     private PetController createPetController(String petName) {

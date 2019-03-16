@@ -5,6 +5,8 @@ import com.codecool.virtual_pet.notification_system_lib.Notification;
 import com.codecool.virtual_pet.notification_system_lib.NotificationCode;
 import com.codecool.virtual_pet.notification_system_lib.NotificationDispatcher;
 import com.codecool.virtual_pet.notification_system_lib.Notifier;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,9 +18,13 @@ public class FoodInventoryView extends VBox {
     private Text foodDescription = new Text();
 
     public FoodInventoryView() {
-        super();
-        setHgap(5);
-        setVgap(5);
+        super(25);
+        setWidth(200);
+        foodGrid.setHgap(5);
+        foodGrid.setVgap(5);
+        setPadding(new Insets(25));
+        setAlignment(Pos.CENTER);
+        getChildren().addAll(foodGrid, foodDescription);
     }
 
     void update(PetFood[] foodList) {

@@ -11,10 +11,10 @@ public class PetController implements NotificationHandler {
     private PetModel petModel;
     private PetOverview petView;
     private Thread petLifeCycleThread;
+    private Thread petThoughtsUpdater;
 
     public PetController(PetModel petModel) {
         this.petModel = petModel;
-        petModel.start();
     }
 
     public PetOverview getPetView() {
@@ -57,14 +57,29 @@ public class PetController implements NotificationHandler {
         }
     }
 
-    public void createPetOverview() {
-        setPetView(new PetOverview(petModel));
+    public void startPet() {
+        petModel.start();
         petLifeCycleThread = new Thread(() -> {
             while(petModel.isActive()) {
                 petView.updateStats(petModel.getStats());
             }
         }, "pet-lifecycle");
+        petThoughtsUpdater = new Thread(() -> {
+            while (petModel.isActive()) {
+                try {
+                    Thread.sleep(2000);
+                    petView.updateThoughts(petModel);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        petThoughtsUpdater.start();
         petLifeCycleThread.start();
+    }
+
+    public void createPetOverview() {
+        setPetView(new PetOverview(petModel));
     }
 
     public PetModel getPetModel() {
@@ -76,6 +91,7 @@ public class PetController implements NotificationHandler {
             petModel.setActive(false);
             petModel.stop();
             petLifeCycleThread.join();
+            petThoughtsUpdater.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

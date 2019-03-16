@@ -37,10 +37,33 @@ public class PetModel {
         for (Thread thread : statThreads) {
             thread.start();
         }
+        setFoodTaste(Arrays.asList(PetFood.getRandomFood()), Arrays.asList(PetFood.getRandomFood()));
+        petThoughts = "Hi! My name is " + name + "!";
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getPetThoughts() {
+        return petThoughts;
+    }
+
+    public List<PetFood> getFavoriteFood() {
+        return favoriteFood;
+    }
+
+    public List<PetFood> getDislikedFood() {
+        return dislikedFood;
+    }
+
+    public void setFoodTaste(List<PetFood> favoriteFood, List<PetFood> dislikedFood) {
+        if (favoriteFood != null) {
+            this.favoriteFood = favoriteFood;
+        }
+        if (dislikedFood != null) {
+            this.dislikedFood = dislikedFood;
+        }
     }
 
     public synchronized PetStats getStats() {
@@ -85,13 +108,20 @@ public class PetModel {
         stats.setHunger(hungerAfterMod);
     }
 
-    private void modifyHappinessBy(double amount) {
+    public void modifyHappinessBy(double amount) {
         double happinessAfterMod = normalizeModification(stats.getHappiness() + amount);
         stats.setHappiness(happinessAfterMod);
     }
 
     public void feed(PetFood petFood) {
         double favorModifier = getFavorModifier(petFood);
+        if (favorModifier > 0) {
+            petThoughts = "Yummy! I like " + petFood + "!";
+        } else if (favorModifier < 0) {
+            petThoughts = "Yuk! That's not what I wanted :C";
+        } else {
+            petThoughts = "Omnomnomnomnom. That's ok.";
+        }
         modifyHungerBy(petFood.getHungerModifier());
         modifyHappinessBy(petFood.getHappinessModifier() + favorModifier);
         modifyTirednessBy(petFood.getTirednessModifier());

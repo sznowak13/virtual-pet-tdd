@@ -41,4 +41,8 @@ public class PetOverview extends BorderPane {
         foodInventory.update(values);
         setRight(foodInventory);
     }
+
+    public void updateThoughts(PetModel petModel) {
+        petSummaryView.update(petModel);
+    }
 }
